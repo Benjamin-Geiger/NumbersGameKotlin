@@ -6,7 +6,7 @@ class GameLogic(val initialDigitsToGuess: Int = DEFAULT_DIGITS) {
     var digitsToGuess: Int = initialDigitsToGuess
         private set
 
-    val targetNumber: List<Int> = generateRandomNumber(digitsToGuess)
+    var targetNumber: List<Int> = generateRandomNumber(digitsToGuess)
 
     val evaluateGuess: (String) -> GuessResult = {
         userGuess ->
@@ -29,6 +29,15 @@ class GameLogic(val initialDigitsToGuess: Int = DEFAULT_DIGITS) {
 
         GuessResult(correctDigits, correctPositions)
     }
+
+    var isValidGuess: (String?) -> Boolean = { userGuess ->
+        userGuess != null &&
+        userGuess.length == digitsToGuess &&
+        userGuess.all { char -> char in '1'..'9' } &&
+        userGuess.toSet().size == digitsToGuess
+    }
+    
+    fun isWinningGuess(res: GuessResult): Boolean = res.toString() == "$digitsToGuess:$digitsToGuess"
 
     companion object Numbers{
         val DEFAULT_DIGITS = 4
