@@ -5,6 +5,6 @@ fun main() {
     // Start the game
     // user GameManager.start()
     var Game = GameLogic
-    val num = Game.generateRandomNumber(4)
+    val num = Game.generateRandomNumber(8)
     println(num)
 }

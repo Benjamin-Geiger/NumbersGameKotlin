@@ -6,26 +6,25 @@ class GameLogic(val initialDigitsToGuess: Int = DEFAULT_DIGITS) {
     var digitsToGuess: Int = initialDigitsToGuess
         private set
 
-    val targetNumber: List<Int> = generateRandomNumber(DEFAULT_DIGITS)
+    val targetNumber: List<Int> = generateRandomNumber(digitsToGuess)
 
 
     companion object Numbers{
         val DEFAULT_DIGITS = 4
 
         fun generateRandomNumber(digits: Int): List<Int>{
-            val numbers: MutableList<Int> = mutableListOf()
-            for(i in 1..9){
-                numbers.add(i)
+            val numbers: MutableList<Int> = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
+            numbers.shuffle()
+
+            for(i in 1..(9 - digits)){
+                numbers.removeLast()
             }
-            val numbersShuffled: List<Int> = numbers.shuffled()
 
-            val numbersLocked: MutableList<Int> = mutableListOf()
-
-            for(i in 1..digits){
-                numbersLocked.add(numbersShuffled[i])
-            }
-            return numbersLocked
-
+            return numbers.toList()
         }
+
+
     }
+
+
 }
